@@ -8,8 +8,8 @@ public class Architect extends Designer {
 
     public Architect() {}
 
-    public Architect(String name, Integer age, BigDecimal salary, Double bonus, int stock) {
-        super(name, age, salary, bonus);
+    public Architect(String name, Integer age, BigDecimal salary, Equipment equipment, Double bonus, int stock) {
+        super(name, age, salary, equipment, bonus);
         this.stock = stock;
     }
 

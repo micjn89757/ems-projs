@@ -18,29 +18,49 @@ public class EmployeeServiceTest {
     @Test
     public void testAddEmployee() {
         EmployeeService employeeService = new EmployeeService();
-        // 错误码2: 最多只能有两名架构师
+        // 最多只能有两名架构师
         for (int i = 0; i < 2; i++) {
-            employeeService.addEmployee(new Architect());
+            try {
+                employeeService.addEmployee(new Architect());
+            } catch (EMSException e) {
+                e.printStackTrace();
+            }
         }
-        assertEquals(2, employeeService.addEmployee(new Architect()));
+        Throwable emsException1 = assertThrows(EMSException.class, () -> employeeService.addEmployee(new Architect()));
+        assertEquals("架构师不能超过两个人", emsException1.getMessage());
 
-        // 错误码3: 最多只能有三名设计师
+        // 最多只能有三名设计师
         for (int i = 0; i < 3; i++) {
-            employeeService.addEmployee(new Designer());
+            try {
+                employeeService.addEmployee(new Designer());
+            } catch (EMSException e) {
+                e.printStackTrace();
+            }
         }
-        assertEquals(3, employeeService.addEmployee(new Designer()));
+        Throwable emsException2 = assertThrows(EMSException.class, () -> employeeService.addEmployee(new Designer()));
+        assertEquals("设计师不能超过三个人", emsException2.getMessage());
 
-        // 错误4: 最多只能有五名程序员
+        // 最多只能有五名程序员
         for (int i = 0; i < 5; i++) {
-            employeeService.addEmployee(new Programmer());
+            try {
+                employeeService.addEmployee(new Programmer());
+            } catch (EMSException e) {
+                e.printStackTrace();
+            }
         }
-        assertEquals(4, employeeService.addEmployee(new Programmer()));
+        Throwable emsException3 = assertThrows(EMSException.class, () -> employeeService.addEmployee(new Programmer()));
+        assertEquals("程序员不能超过五个人", emsException3.getMessage());
 
-        // 错误1: 数组已满
+        // 开发人员已满
         for (int i = 0; i < 5; i++) {
-            employeeService.addEmployee(new Employee());
+            try {
+                employeeService.addEmployee(new Employee());
+            } catch (EMSException e) {
+                e.printStackTrace();
+            }
         }
-        assertEquals(1, employeeService.addEmployee(new Employee()));
+        Throwable emsException4 = assertThrows(EMSException.class, () -> employeeService.addEmployee(new Employee()));
+        assertEquals("开发人员已满，无法添加", emsException4.getMessage());
 
     }
 
@@ -52,15 +72,24 @@ public class EmployeeServiceTest {
         EmployeeService employeeService = new EmployeeService();
 
         // 列表为空
-        assertFalse(employeeService.removeEmployee(1));
+        assertThrows(EMSException.class, () -> employeeService.removeEmployee(1));
         // 编号越界
-        employeeService.addEmployee(new Employee());
-        assertFalse(employeeService.removeEmployee(2));
-        assertFalse(employeeService.removeEmployee(-1));
+        try {
+            employeeService.addEmployee(new Employee());
+        } catch (EMSException e) {
+            e.printStackTrace();
+        }
+        assertThrows(EMSException.class, () -> employeeService.removeEmployee(2));
+        assertThrows(EMSException.class, () -> employeeService.removeEmployee(-1));
 
         // 正常删除
-        employeeService.addEmployee(new Employee());
-        assertTrue(employeeService.removeEmployee(1));
+        try {
+            employeeService.addEmployee(new Employee());
+        } catch (EMSException e) {
+            e.printStackTrace();
+        }
+        assertDoesNotThrow(() -> employeeService.removeEmployee(1));
+        // 正常删除完只剩下一个员工
         assertEquals(1, employeeService.getEmpNums());
     }
 
@@ -70,8 +99,12 @@ public class EmployeeServiceTest {
     @Test
     public void testGetAllEmployees() {
         EmployeeService employeeService = new EmployeeService();
-        employeeService.addEmployee(new Employee());
-        employeeService.addEmployee(new Employee());
+        try {
+            employeeService.addEmployee(new Employee());
+            employeeService.addEmployee(new Employee());
+        }catch (EMSException e) {
+            e.printStackTrace();
+        }
 
         System.out.println(Arrays.deepToString(employeeService.getAllEmployees()));
     }
@@ -82,16 +115,20 @@ public class EmployeeServiceTest {
     @Test
     public void testGetEmployee() {
         EmployeeService employeeService = new EmployeeService();
-        employeeService.addEmployee(new Employee());
-        employeeService.addEmployee(new Employee());
+        try {
+            employeeService.addEmployee(new Employee());
+            employeeService.addEmployee(new Employee());
+        }catch (EMSException e) {
+            e.printStackTrace();
+        }
 
 
         // 正常获取
-        assertNotNull(employeeService.getEmployee(2));
+        assertDoesNotThrow(() -> employeeService.getEmployee(2));
 
         //索引越界
-        assertNull(employeeService.getEmployee(-1));
-        assertNull(employeeService.getEmployee(3));
+        assertThrows(EMSException.class, () -> employeeService.getEmployee(-1));
+        assertThrows(EMSException.class, () ->employeeService.getEmployee(3));
     }
 
     /**
@@ -100,8 +137,12 @@ public class EmployeeServiceTest {
     @Test
     public void testGetEmpNums() {
         EmployeeService employeeService = new EmployeeService();
-        employeeService.addEmployee(new Employee());
-        employeeService.addEmployee(new Employee());
+        try {
+            employeeService.addEmployee(new Employee());
+            employeeService.addEmployee(new Employee());
+        }catch (EMSException e) {
+            e.printStackTrace();
+        }
 
         assertEquals(2, employeeService.getEmpNums());
     }

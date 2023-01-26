@@ -9,8 +9,8 @@ public class Designer extends Programmer {
 
     public Designer() {}
 
-    public Designer(String name, Integer age, BigDecimal salary, Double bonus) {
-        super(name, age, salary);
+    public Designer(String name, Integer age, BigDecimal salary, Equipment equipment, Double bonus) {
+        super(name, age, salary, equipment);
         this.bonus = bonus;
     }
 

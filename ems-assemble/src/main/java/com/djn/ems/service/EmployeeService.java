@@ -44,57 +44,54 @@ public class EmployeeService {
      * 向员工列表中的最后追加员工
      *
      * @param emp 员工对象，可以是普通员工、程序员、设计师和架构师
-     * @return 如果返回0表明添加成功，否则表明添加失败
-     *  错误码:1: 表示数组已满无法添加
-     *        2: 最多只能有两名架构师
-     *        3: 最多只能有三名设计师
-     *        4: 最多只能有五名程序员
+     *  错误消息:
+     *        设备正在使用中，无法领用
+     *        设备已经报废，无法领用
+     *        开发人员已满，无法添加
+     *        团队中只能由五名程序员
+     *        团队中只能有三名设计师
+     *        团队中只能有两名架构师
      */
-    public int addEmployee(Employee emp) {
+    public void addEmployee(Employee emp) throws EMSException {
         if (EMPLOYEES.length == realCount) {
-            return 1;
+            throw new EMSException("开发人员已满，无法添加");
         }
 
         // 可能会出现NPE
         Class<? extends Employee> empClass = emp.getClass();
 
-        // 添加员工
-        EMPLOYEES[realCount++] = emp;
-
         if (Objects.equals(empClass.getName(), Architect.class.getName())) {
             if (archCount < 2) {
                 archCount++;
             }else {
-                return 2;
+                throw new EMSException("架构师不能超过两个人");
             }
         }else if (Objects.equals(empClass.getName(), Designer.class.getName())) {
             if (desCount < 3) {
                 desCount++;
             }else {
-                return 3;
+                throw new EMSException("设计师不能超过三个人");
             }
         }else if (Objects.equals(empClass.getName(), Programmer.class.getName())) {
             if (progCount < 5) {
                 progCount++;
             }else {
-                return 4;
+                throw new EMSException("程序员不能超过五个人");
             }
         }
-        return 0;
+
+        // 添加员工
+        EMPLOYEES[realCount++] = emp;
     }
 
     /**
      * 删除员工列表里面的指定员工
      * @param index 删除的员工编号,从1开始
-     * @return 删除成功返回true，删除失败返回false
      */
-    public boolean removeEmployee(int index) {
-        /*
-            这里也可以和添加员工一样设置明确意义的返回值错误码
-        */
+    public void removeEmployee(int index) throws EMSException {
         // 没有员工，编号不存在，都是删除失败
         if (realCount == 0 || index > realCount || index <= 0) {
-            return false;
+            throw new EMSException("未找到员工id");
         }
 
         Class<? extends Employee> empClass = EMPLOYEES[index - 1].getClass();
@@ -112,7 +109,6 @@ public class EmployeeService {
         }
 
         realCount--;
-        return true;
     }
 
     /**
@@ -128,9 +124,9 @@ public class EmployeeService {
      * @param index 员工编号
      * @return 员工对象
      */
-    public Employee getEmployee(int index) {
+    public Employee getEmployee(int index) throws EMSException {
         if (index <= 0 || index > realCount) {
-            return null;
+            throw new EMSException("未找到指定员工或索引不合法");
         }
 
         return EMPLOYEES[index - 1];

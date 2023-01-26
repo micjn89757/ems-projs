@@ -1,5 +1,15 @@
 D:\JavaCode\ems-projs\ems-assemble\src\main\java\com\djn\ems\domain\Designer.java
 D:\JavaCode\ems-projs\ems-assemble\src\main\java\com\djn\ems\service\EmployeeService.java
+D:\JavaCode\ems-projs\ems-assemble\src\main\java\com\djn\ems\dao\EmployeeDAO.java
+D:\JavaCode\ems-projs\ems-assemble\src\main\java\com\djn\ems\service\EquipmentService.java
 D:\JavaCode\ems-projs\ems-assemble\src\main\java\com\djn\ems\domain\Employee.java
+D:\JavaCode\ems-projs\ems-assemble\src\main\java\com\djn\ems\domain\NotePad.java
 D:\JavaCode\ems-projs\ems-assemble\src\main\java\com\djn\ems\domain\Programmer.java
 D:\JavaCode\ems-projs\ems-assemble\src\main\java\com\djn\ems\domain\Architect.java
+D:\JavaCode\ems-projs\ems-assemble\src\main\java\com\djn\ems\service\Status.java
+D:\JavaCode\ems-projs\ems-assemble\src\main\java\com\djn\ems\domain\Equipment.java
+D:\JavaCode\ems-projs\ems-assemble\src\main\java\com\djn\ems\domain\PC.java
+D:\JavaCode\ems-projs\ems-assemble\src\main\java\com\djn\ems\service\EMSException.java
+D:\JavaCode\ems-projs\ems-assemble\src\main\java\com\djn\ems\service\Data.java
+D:\JavaCode\ems-projs\ems-assemble\src\main\java\com\djn\ems\dao\EquipmentDAO.java
+D:\JavaCode\ems-projs\ems-assemble\src\main\java\com\djn\ems\domain\NoteBook.java

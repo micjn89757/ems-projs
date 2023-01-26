@@ -5,8 +5,7 @@ import java.util.Objects;
 
 public class Programmer extends Employee{
     private Equipment equipment;
-    public Programmer() {
-    }
+    public Programmer() {}
 
     public Programmer(String name, Integer age, BigDecimal salary, Equipment equipment) {
         super(name, age, salary);
