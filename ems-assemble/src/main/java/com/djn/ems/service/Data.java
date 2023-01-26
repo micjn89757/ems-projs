@@ -1,12 +1,10 @@
 package com.djn.ems.service;
 
 
-public final class Data {
-    public static final int PC = 11;
-    public static final int NOTEBOOK = 12;
-    public static final int NOTEPAD = 13;
-
+public enum Data {
+    PC(11), NOTEBOOK(12), NOTEPAD(13);
     /**
+     * 模拟数据
      * PC: 11, factory,price,display
      * NOTEBOOK: 12,factory,price,model
      * NOTEPAD: 13,factory,price
@@ -23,4 +21,20 @@ public final class Data {
             {"13", "苹果", "4500"},
             {"12", "惠普", "5800", "FZ5"}
     };
+    private final int code;
+
+    private Data(int code) {
+        this.code = code;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    @Override
+    public String toString() {
+        return "Data{" +
+                "code=" + code +
+                "} " + super.toString();
+    }
 }

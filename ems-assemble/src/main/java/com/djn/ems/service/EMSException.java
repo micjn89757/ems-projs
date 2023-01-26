@@ -10,6 +10,10 @@ public class EMSException extends Exception {
         super(message);
     }
 
+    public EMSException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
     public EMSException(Throwable cause) {
         super(cause);
     }

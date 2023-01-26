@@ -8,4 +8,9 @@ public class NotePad extends Equipment{
     public NotePad(int id, String factory, double price, Status status) {
         super(id, factory, price, status);
     }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

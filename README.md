@@ -1,7 +1,7 @@
 # EMS员工管理系统
 
-视图层大致实现了逻辑，就不追求细节
 > 主要是梳理逻辑和实现思路核心时service层，所以代码细节(包括测试部分)并不全，主要关注添加和删除
+> 修改对象不需要在service实现主要是由于，修改时其实时获取对象然后通过修改器修改属性
 
 ### 基于数组实现: ems-array
 - 主要涉及知识点
@@ -38,7 +38,7 @@
 - 主要涉及知识点
   - 类和对象
   - 类的封装
-  - 对象数组以及数组的插入删除
+  - 集合
   - 聚合
   - 多态
 #### 需求说明
@@ -54,14 +54,14 @@
 
 #### 设计结构
 软件由四个模块构成：
-- com.djn.ems.view: 视图层
+- com.djn.ems.view: 视图层, 设备管理和人员管理部分在此关联，领用设备逻辑也在视图层完成，通过set方法
   - EmployeeView: 菜单显示和处理用户操作
 - com.djn.ems.service: 服务层
   - EmployeeService: Employee对象管理模块，内部使用数组管理一组对象，并提供相应的添加、删除和获取方法，供EmployeeView调用
   - EMSException: 项目自定义异常
   - Status: 表示设备的三种状态：FREE(空闲)、USED(在用)、SCRAP(报废)
   - EquipmentService: 管理设备对象
-  - DATA: 在没有数据库时候，简单使用一个类存放数据(二维数组)
+  - Data: 在没有数据库时候，简单使用一个枚举类存放数据(二维数组)
 - com.djn.ems.main: 入口
   - EmployeeMain: 项目入口
 - com.djn.ems.domain: 实体层
