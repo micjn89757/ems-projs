@@ -7,7 +7,7 @@
     <artifactId>ems-projs</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
-<!--  <groupId>com.djn.ems-projs</groupId>-->
+<!--  <groupId>com.djn.ems</groupId>-->
   <artifactId>ems-array</artifactId>
 <!--  <version>1.0-SNAPSHOT</version>-->
   <name>ems-array</name>

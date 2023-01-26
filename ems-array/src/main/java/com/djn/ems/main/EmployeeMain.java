@@ -1,6 +1,5 @@
 package com.djn.ems.main;
 
-import com.djn.ems.domain.Architect;
 import com.djn.ems.view.EmployeeView;
 
 

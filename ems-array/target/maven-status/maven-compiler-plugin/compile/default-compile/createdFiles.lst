@@ -1,4 +1,3 @@
 com\djn\ems\view\EmployeeView.class
 com\djn\ems\service\EmployeeService.class
 com\djn\ems\domain\Employee.class
-com\djn\ems\main\EmployMain.class

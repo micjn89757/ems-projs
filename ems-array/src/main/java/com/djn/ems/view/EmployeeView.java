@@ -1,10 +1,6 @@
 package com.djn.ems.view;
 
-import com.djn.ems.domain.Employee;
 import com.djn.ems.service.EmployeeService;
-
-import java.util.Objects;
-import java.util.Scanner;
 
 
 /**
