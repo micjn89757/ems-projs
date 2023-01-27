@@ -1,10 +1,14 @@
 package com.djn.ems.domain;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-public class Employee {
+public class Employee implements Serializable {
 
+    @Serial
+    private static final long serialVersionUID = 8542046886159531681L;
     private String name;
     private Integer age;
     private BigDecimal salary;

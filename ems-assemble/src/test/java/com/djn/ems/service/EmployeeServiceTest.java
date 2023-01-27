@@ -106,7 +106,7 @@ public class EmployeeServiceTest {
             e.printStackTrace();
         }
 
-        System.out.println(Arrays.deepToString(employeeService.getAllEmployees()));
+        System.out.println(employeeService.getAllEmployees());
     }
 
     /**
@@ -145,5 +145,21 @@ public class EmployeeServiceTest {
         }
 
         assertEquals(2, employeeService.getEmpNums());
+    }
+
+    /**
+     * 保存员工列表，序列化
+     */
+    @Test
+    public void testSave() {
+        EmployeeService employeeService = new EmployeeService();
+        try {
+            employeeService.addEmployee(new Employee());
+            employeeService.addEmployee(new Employee());
+        }catch (EMSException e) {
+            e.printStackTrace();
+        }
+
+        assertDoesNotThrow(employeeService::save);
     }
 }

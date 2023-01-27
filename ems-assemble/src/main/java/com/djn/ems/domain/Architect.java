@@ -1,9 +1,12 @@
 package com.djn.ems.domain;
 
+import java.io.Serial;
 import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Architect extends Designer {
+    @Serial
+    private static final long serialVersionUID = -3537705881638128396L;
     private int stock;
 
     public Architect() {}

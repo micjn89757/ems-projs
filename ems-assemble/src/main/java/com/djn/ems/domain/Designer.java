@@ -1,10 +1,13 @@
 package com.djn.ems.domain;
 
 
+import java.io.Serial;
 import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Designer extends Programmer {
+    @Serial
+    private static final long serialVersionUID = -6765369828079391647L;
     private Double bonus;
 
     public Designer() {}

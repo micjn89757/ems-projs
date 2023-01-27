@@ -34,4 +34,20 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <!-- **表示任意目录，*.*表示任意文件名和扩展名 -->
+                    <include>**/*.*</include>
+                </includes>
+<!--                <filtering></filtering>-->
+<!--                <excludes>-->
+<!--                    <exclude></exclude>-->
+<!--                </excludes>-->
+            </resource>
+        </resources>
+    </build>
 </project>

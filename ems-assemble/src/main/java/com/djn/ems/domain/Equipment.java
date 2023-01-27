@@ -2,7 +2,12 @@ package com.djn.ems.domain;
 
 import com.djn.ems.service.Status;
 
-public abstract class Equipment {
+import java.io.Serial;
+import java.io.Serializable;
+
+public abstract class Equipment implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 6814647863751483030L;
     private int id;
     private String factory;
     private double price;

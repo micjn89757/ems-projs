@@ -1,9 +1,12 @@
 package com.djn.ems.domain;
 
+import java.io.Serial;
 import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Programmer extends Employee{
+    @Serial
+    private static final long serialVersionUID = -6516172310562801479L;
     private Equipment equipment;
     public Programmer() {}
 

@@ -1,26 +1,25 @@
 package com.djn.ems.service;
 
-import com.djn.ems.domain.Architect;
-import com.djn.ems.domain.Designer;
-import com.djn.ems.domain.Employee;
-import com.djn.ems.domain.Programmer;
+import com.djn.ems.dao.EmployeeDAO;
+import com.djn.ems.domain.*;
 
-import java.util.Arrays;
-import java.util.Objects;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * 内部数据不允许外部随意修改，具有更好的封装性
  */
 public class EmployeeService {
-     /**
-     * 存放员工的数组
-     */
-    private static final Employee[] EMPLOYEES = new Employee[15];
-
     /**
-     * 员工数组中真正存在员工数量
+     * 最大开发人员数量
      */
-    private int realCount = 0;
+    private static final int MAX_DEVELOPER = 10;
+
+    private final EmployeeDAO dao = new EmployeeDAO();
+     /**
+     * 存放员工的列表
+     */
+    private final List<Employee> list;
 
     /**
      * 员工列表中存在的架构师的数量
@@ -38,7 +37,9 @@ public class EmployeeService {
     private int progCount = 0;
 
 
-    public EmployeeService() {}
+    public EmployeeService() {
+        list = dao.getList();
+    }
 
     /**
      * 向员工列表中的最后追加员工
@@ -53,7 +54,7 @@ public class EmployeeService {
      *        团队中只能有两名架构师
      */
     public void addEmployee(Employee emp) throws EMSException {
-        if (EMPLOYEES.length == realCount) {
+        if (list.size() == MAX_DEVELOPER) {
             throw new EMSException("开发人员已满，无法添加");
         }
 
@@ -81,7 +82,7 @@ public class EmployeeService {
         }
 
         // 添加员工
-        EMPLOYEES[realCount++] = emp;
+        list.add(emp);
     }
 
     /**
@@ -90,15 +91,11 @@ public class EmployeeService {
      */
     public void removeEmployee(int index) throws EMSException {
         // 没有员工，编号不存在，都是删除失败
-        if (realCount == 0 || index > realCount || index <= 0) {
+        if (list.size() == 0 || index > MAX_DEVELOPER || index <= 0) {
             throw new EMSException("未找到员工id");
         }
 
-        Class<? extends Employee> empClass = EMPLOYEES[index - 1].getClass();
-        // 删除操作, 注意防止索引越界
-        for (int i = index; i < realCount; i++) {
-            EMPLOYEES[i - 1] = EMPLOYEES[i];
-        }
+        Class<? extends Employee> empClass = list.get(index - 1).getClass();
 
         if (Objects.equals(empClass.getName(), Architect.class.getName())) {
             archCount--;
@@ -108,15 +105,18 @@ public class EmployeeService {
             progCount--;
         }
 
-        realCount--;
+        // 删除操作
+        list.remove(index - 1);
     }
 
     /**
-     * 返回列表
+     * 返回员工列表
      * @return 员工列表
      */
-    public Employee[] getAllEmployees() {
-        return Arrays.copyOf(EMPLOYEES, realCount);
+    public List<Employee> getAllEmployees() {
+        List<Employee> tempList = new ArrayList<>(list.size());
+        Collections.copy(tempList, list);
+        return tempList;
     }
 
     /**
@@ -125,18 +125,29 @@ public class EmployeeService {
      * @return 员工对象
      */
     public Employee getEmployee(int index) throws EMSException {
-        if (index <= 0 || index > realCount) {
+        if (index <= 0 || index > MAX_DEVELOPER) {
             throw new EMSException("未找到指定员工或索引不合法");
         }
 
-        return EMPLOYEES[index - 1];
+        return list.get(index - 1);
     }
 
     /**
      * 返回员工数量
      */
     public int getEmpNums() {
-        return this.realCount;
+        return list.size();
+    }
+
+    /**
+     * 保存员工数据到文件中
+     */
+    public void save() throws IOException {
+        try {
+            dao.save(list);
+        } catch (EMSException e) {
+            throw new IOException("数据文件不存在或无法访问");
+        }
     }
 
 

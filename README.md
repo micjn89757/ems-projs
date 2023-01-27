@@ -1,6 +1,6 @@
 # EMS员工管理系统
 
-> 主要是梳理逻辑和实现思路核心时service层，所以代码细节(包括测试部分)并不全，主要关注添加和删除
+> 主要是梳理逻辑和实现思路核心时service层，所以其他代码细节(包括测试部分)并不完善
 > 本系统修改对象不需要在service实现主要是由于，修改时其实时获取对象然后通过修改器修改属性
 
 ### 基于数组实现: ems-array
@@ -74,7 +74,7 @@
   - Status: 表示设备的三种状态：FREE(空闲)、USED(在用)、SCRAP(报废)
     - 状态切换在视图层
   - EquipmentService: 管理设备对象
-  - Data: 在没有数据库时候，简单使用一个枚举类存放数据(二维数组)
+  - Data: 在没有数据库时候，简单使用一个枚举类存放设备初始数据(二维数组)
 - com.djn.ems.main: 入口
   - EmployeeMain: 项目入口
 - com.djn.ems.domain: 实体层
@@ -88,8 +88,10 @@
     - NotePad: 继承Equipment
 - com.djn.ems.dao: Data Access Object数据访问对象，专门用于处理数据的读取和写入
   - EquipmentDAO
-  - EmployeeDAO
+  - EmployeeDAO 从EquipmentService做一个简单的分离
 
+> 读取resources目录中的文件, 要看编译打包后文件的位置，
+> 要通过 类.class.getClassLoader().getResources(\[resources下的文件路径\]).getFile() 获取绝对路径，但是路径最前面有一个/要去掉
 
 ### 基于数据库+jdbc实现
 
